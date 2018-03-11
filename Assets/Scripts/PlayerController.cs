@@ -7,12 +7,18 @@ public class PlayerController : MonoBehaviour {
 	bool shoot;	
 	float speed = 5;
 	
-	float jumpSpeed = 10;
+	float jumpSpeed = 30;
 	int pontos;
+
 	public GameObject shot;
 
+	public AudioClip shootAudio;
+	public AudioClip jumpAudio;
+	public AudioClip hurtAudio;
 
+	public AudioSource sourceAudio;
 	void Start(){
+		sourceAudio = this.gameObject.GetComponent<AudioSource>();
 		shoot=true;	
 	}
 
@@ -23,7 +29,8 @@ public class PlayerController : MonoBehaviour {
     	else if (Input.GetKey(KeyCode.A)){
         	transform.position -= transform.right * speed * Time.deltaTime;
    	 	}
-		if (Input.GetKey(KeyCode.Space)){
+		if (Input.GetKeyDown(KeyCode.Space)){
+			sourceAudio.PlayOneShot(jumpAudio);
         	transform.position += transform.up * jumpSpeed * Time.deltaTime;
     	}
 		if(Input.GetKeyDown(KeyCode.RightArrow)){
@@ -31,6 +38,7 @@ public class PlayerController : MonoBehaviour {
 				shoot=false;
 				GameObject newShot = Instantiate(shot);
 				newShot.transform.position = transform.position + new Vector3(2.0f,0.3f);
+				sourceAudio.PlayOneShot(shootAudio);
 			}
 		}
 		if(Input.GetKeyDown(KeyCode.UpArrow)){
@@ -38,6 +46,7 @@ public class PlayerController : MonoBehaviour {
 				shoot=false;
 				GameObject newShot = Instantiate(shot);
 				newShot.transform.position = transform.position + new Vector3(0.0f,2.0f);
+				sourceAudio.PlayOneShot(shootAudio);
 			}
 		}
 		if(Input.GetKeyDown(KeyCode.LeftArrow)){
@@ -45,11 +54,13 @@ public class PlayerController : MonoBehaviour {
 				shoot=false;
 				GameObject newShot = Instantiate(shot);
 				newShot.transform.position = transform.position + new Vector3(-2.0f,0.3f);
+				sourceAudio.PlayOneShot(shootAudio);
 			}
 		}
 	}
 	void OnTriggerEnter2D(Collider2D other){
 			if(other.tag.Equals("Enemy")){
+				//sourceAudio.PlayOneShot(hurtAudio);
 				Destroy(this.gameObject);
 				Application.LoadLevel("Test");
 			}

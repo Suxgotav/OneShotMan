@@ -4,7 +4,12 @@ using UnityEngine;
 
 public class EnemyController : MonoBehaviour {
 
+	public AudioClip deadSound;
+
+	AudioSource sourceOfAudio;
+
 	void Start () {
+		sourceOfAudio = GetComponent<AudioSource>();
 		GetComponent<Rigidbody2D>().velocity = new Vector2(-4,0);
 	}
 	
@@ -17,6 +22,7 @@ public class EnemyController : MonoBehaviour {
 
 	void OnTriggerEnter2D(Collider2D other){
 		if(other.tag.Equals("Shot")){
+			//sourceOfAudio.PlayOneShot(deadSound);
 			Destroy(this.gameObject);
 		}
 	}

@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour {
 
-	int speed=5;
+	public GameObject player;
+
 	
 	// Use this for initialization
 	void Start () {
@@ -13,13 +14,7 @@ public class CameraController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		/*if (Input.GetKey(KeyCode.D)){
-        	transform.position += transform.right * speed * Time.deltaTime;
-    	}
-    	else if (Input.GetKey(KeyCode.A)){
-        	transform.position -= transform.right * speed * Time.deltaTime;
-   	 	}*/
-
+		this.gameObject.transform.position = new Vector3(player.gameObject.transform.position.x,this.gameObject.transform.position.y,this.gameObject.transform.position.z);
 	}
 
 }
