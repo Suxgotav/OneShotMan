@@ -7,8 +7,14 @@ public class PlayerController : MonoBehaviour {
 	bool shoot;	
 	float speed = 5;
 	
-	float jumpSpeed = 30;
+	float jumpSpeed = 6;
+
+	public float fallMultiplier = 2.5f;
+	public float lowJumpMultiplier = 2f;
+
 	int pontos;
+
+	bool isGrounded;
 
 	public GameObject shot;
 
@@ -17,10 +23,24 @@ public class PlayerController : MonoBehaviour {
 	public AudioClip hurtAudio;
 
 	public AudioSource sourceAudio;
+
+	Rigidbody2D rb;
+	
 	void Start(){
 		sourceAudio = this.gameObject.GetComponent<AudioSource>();
-		shoot=true;	
+		shoot=true;
+		rb = GetComponent<Rigidbody2D>();
+		isGrounded = false;	
 	}
+
+	void FixedUpdate(){
+		if(rb.velocity.y<0){
+			rb.velocity += Vector2.up * Physics2D.gravity.y * (fallMultiplier - 1) * Time.deltaTime;
+		} else if (rb.velocity.y > 0 && !Input.GetKey(KeyCode.Space)){
+			rb.velocity += Vector2.up * Physics2D.gravity.y * (lowJumpMultiplier - 1) * Time.deltaTime;
+		}
+	}
+
 
 	void Update(){
     	if (Input.GetKey(KeyCode.D)){
@@ -29,15 +49,17 @@ public class PlayerController : MonoBehaviour {
     	else if (Input.GetKey(KeyCode.A)){
         	transform.position -= transform.right * speed * Time.deltaTime;
    	 	}
-		if (Input.GetKeyDown(KeyCode.Space)){
+		if (isGrounded && Input.GetKeyDown(KeyCode.Space)){
 			sourceAudio.PlayOneShot(jumpAudio);
-        	transform.position += transform.up * jumpSpeed * Time.deltaTime;
+        	GetComponent<Rigidbody2D>().velocity = Vector2.up * jumpSpeed;
+			isGrounded=false;
     	}
 		if(Input.GetKeyDown(KeyCode.RightArrow)){
 				if(shoot){
 				shoot=false;
 				GameObject newShot = Instantiate(shot);
 				newShot.transform.position = transform.position + new Vector3(2.0f,0.3f);
+				newShot.GetComponent<Rigidbody2D>().velocity = new Vector2(14,0);
 				sourceAudio.PlayOneShot(shootAudio);
 			}
 		}
@@ -46,6 +68,7 @@ public class PlayerController : MonoBehaviour {
 				shoot=false;
 				GameObject newShot = Instantiate(shot);
 				newShot.transform.position = transform.position + new Vector3(0.0f,2.0f);
+				newShot.GetComponent<Rigidbody2D>().velocity = new Vector2(0,14);
 				sourceAudio.PlayOneShot(shootAudio);
 			}
 		}
@@ -54,6 +77,7 @@ public class PlayerController : MonoBehaviour {
 				shoot=false;
 				GameObject newShot = Instantiate(shot);
 				newShot.transform.position = transform.position + new Vector3(-2.0f,0.3f);
+				newShot.GetComponent<Rigidbody2D>().velocity = new Vector2(-14,0);
 				sourceAudio.PlayOneShot(shootAudio);
 			}
 		}
@@ -63,10 +87,10 @@ public class PlayerController : MonoBehaviour {
 				//sourceAudio.PlayOneShot(hurtAudio);
 				Destroy(this.gameObject);
 				Application.LoadLevel("Test");
-			}
-			
+			}if (other.tag.Equals("Ground")){
+				isGrounded=true;
+			}			
 	}
-
 
 	void MarcaPonto(){
 		pontos++;

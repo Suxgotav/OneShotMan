@@ -22,7 +22,7 @@ public class EnemyController : MonoBehaviour {
 
 	void OnTriggerEnter2D(Collider2D other){
 		if(other.tag.Equals("Shot")){
-			//sourceOfAudio.PlayOneShot(deadSound);
+			sourceOfAudio.PlayOneShot(deadSound);
 			Destroy(this.gameObject);
 		}
 	}

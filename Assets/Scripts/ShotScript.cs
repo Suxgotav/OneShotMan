@@ -8,22 +8,18 @@ void Start () {
 	}
 	
 	// Update is called once per frame
-	void LateUpdate () {
-		if(Input.GetKeyDown(KeyCode.RightArrow)){
-			GetComponent<Rigidbody2D>().velocity = new Vector2(14,0);
-			GetComponent<Rigidbody2D>().isKinematic= false;
-		}
-		else if(Input.GetKeyDown(KeyCode.UpArrow)){
-			GetComponent<Rigidbody2D>().velocity = new Vector2(0,14);
-			GetComponent<Rigidbody2D>().isKinematic= false;
-		}
-		else if(Input.GetKeyDown(KeyCode.LeftArrow)){
-			GetComponent<Rigidbody2D>().velocity = new Vector2(-14,0);
-			GetComponent<Rigidbody2D>().isKinematic= false;
-		}	
-		if(transform.position.x > 50 || transform.position.y > 50){
+	void Update () {
+		if(transform.position.x > GameObject.FindGameObjectWithTag("Player").transform.position.x + 15){
 			GameObject.FindWithTag("Player").SendMessage("CallCanShoot");
-			Destroy(this.gameObject);	
+			Destroy(this.gameObject);
+		}
+		if(transform.position.y > GameObject.FindGameObjectWithTag("Player").transform.position.y + 15){
+			GameObject.FindWithTag("Player").SendMessage("CallCanShoot");
+			Destroy(this.gameObject);
+		}
+		if(transform.position.x < GameObject.FindGameObjectWithTag("Player").transform.position.x - 15){
+			GameObject.FindWithTag("Player").SendMessage("CallCanShoot");
+			Destroy(this.gameObject);
 		}
 	}
 

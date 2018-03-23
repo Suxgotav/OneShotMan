@@ -8,7 +8,7 @@ public class GameEngine : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-	  InvokeRepeating("CriaInimigo",1.0f,1.5f);	
+	  InvokeRepeating("CriaInimigo",0.0f,2.0f);	
 	}
 
 	void Acabou () {
@@ -17,7 +17,7 @@ public class GameEngine : MonoBehaviour {
 	
 
 	void CriaInimigo(){
-		float alturaAleatoria = 3.0f * Random.value - 3;
+		float alturaAleatoria = 4.0f * Random.value - 3;
 		GameObject novoInimigo = Instantiate(inimigo);
 		novoInimigo.transform.position = new Vector2(40.0f,alturaAleatoria);
 		
