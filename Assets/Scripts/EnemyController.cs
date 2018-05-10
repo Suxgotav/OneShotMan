@@ -8,16 +8,29 @@ public class EnemyController : MonoBehaviour {
 
 	AudioSource sourceOfAudio;
 
+	bool run;
 	void Start () {
 		sourceOfAudio = GetComponent<AudioSource>();
-		GetComponent<Rigidbody2D>().velocity = new Vector2(-4,0);
+		run=false;
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		if(transform.position.x < -15){
+		
+		RaycastHit2D groundInfo = Physics2D.Raycast(transform.position,Vector2.left,10f);
+		
+		if(groundInfo.collider.CompareTag("Player"))
+		GetComponent<Rigidbody2D>().velocity = new Vector2(-14,0);
+
+
+		
+		if(GameObject.FindGameObjectWithTag("Player").transform.position.x < -15){
 			Destroy(this.gameObject);
 		}
+	}
+
+	void PlaySound(){
+		sourceOfAudio.Play();
 	}
 
 	void OnTriggerEnter2D(Collider2D other){

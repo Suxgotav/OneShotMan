@@ -4,13 +4,17 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour {
 
-	bool shoot;	
-	float speed = 5;
-	
-	float jumpSpeed = 8;
 
-	public float fallMultiplier = 2.5f;
-	public float lowJumpMultiplier = 2f;
+	int charge;
+	bool shoot;	
+	public float speed = 3;
+	
+	float jumpSpeed = 6f;
+
+	public float fallMultiplier = 1.5f;
+	public float lowJumpMultiplier = 1f;
+
+	int leftRight;
 
 	int pontos;
 
@@ -27,13 +31,21 @@ public class PlayerController : MonoBehaviour {
 	Rigidbody2D rb;
 
 	Animator animator;
-	
+
+	public bool onLadder;
+
+	public float climbSpeed;
+	private float climbVelocity;	
+
 	void Start(){
 		sourceAudio = this.gameObject.GetComponent<AudioSource>();
 		shoot=true;
 		rb = GetComponent<Rigidbody2D>();
 		isGrounded = false;	
 		animator = GetComponent<Animator>();
+		leftRight=0;
+		charge=0;
+		onLadder=false;
 	}
 
 	void FixedUpdate(){
@@ -42,26 +54,45 @@ public class PlayerController : MonoBehaviour {
 		} else if (rb.velocity.y > 0 && !Input.GetKey(KeyCode.Space)){
 			rb.velocity += Vector2.up * Physics2D.gravity.y * (lowJumpMultiplier - 1) * Time.deltaTime;
 		}
+	
 	}
 
-
+	void Update(){
+		Debug.Log(charge);
+		if(Input.GetKey(KeyCode.RightArrow)){
+			charge++;
+		}
+		if(charge>200){
+			shoot=true;
+		}
+	}
 	void LateUpdate(){
+
     	if (Input.GetKey(KeyCode.D)){
 			animator.SetInteger("ShotUp",0);
 			animator.SetInteger("Running",1);
 			animator.SetInteger("ReverseRunning",0);
+			leftRight=1;
         	transform.position += transform.right * speed * Time.deltaTime;
     	}
     	else if (Input.GetKey(KeyCode.A)){
+			animator.SetInteger("ShotUp",0);
+			animator.SetInteger("Running",0);
 			animator.SetInteger("ReverseRunning",1);
         	transform.position -= transform.right * speed * Time.deltaTime;
-			
+			leftRight=2;
    	 	}
+		else if(onLadder && Input.GetKey(KeyCode.W) ){
+			Rigidbody2D rb = this.GetComponent<Rigidbody2D>();
+			//rb.isKinematic = true;
+			transform.position += transform.up * speed * 10 * Time.deltaTime;
+		}	
 		else{
 			animator.SetInteger("Running",0);
-			animator.SetInteger("ReverseRunning",0);
+			animator.SetInteger("ReverseRunning",0);	
 		}
 		if (isGrounded && Input.GetKeyDown(KeyCode.Space)){
+			animator.SetInteger("Jump",1);
 			animator.SetInteger("ShotUp",0);
 			animator.SetInteger("ShotUpFoward",0);
 			sourceAudio.PlayOneShot(jumpAudio);
@@ -76,8 +107,8 @@ public class PlayerController : MonoBehaviour {
 				animator.SetInteger("ReverseRunning",0);	
 				shoot=false;
 				GameObject newShot = Instantiate(shot);
-				newShot.transform.position = transform.position + new Vector3(2.0f,0.3f);
-				newShot.GetComponent<Rigidbody2D>().velocity = new Vector2(10,0);
+				newShot.transform.position = transform.position + new Vector3(1.5f,0.1f);
+				newShot.GetComponent<Rigidbody2D>().velocity = new Vector2(8,0);
 				sourceAudio.PlayOneShot(shootAudio);
 			}
 		}
@@ -89,7 +120,7 @@ public class PlayerController : MonoBehaviour {
 				shoot=false;
 				GameObject newShot = Instantiate(shot);
 				newShot.transform.position = transform.position + new Vector3(0.0f,2.0f);
-				newShot.GetComponent<Rigidbody2D>().velocity = new Vector2(0,10);
+				newShot.GetComponent<Rigidbody2D>().velocity = new Vector2(0,12);
 				sourceAudio.PlayOneShot(shootAudio);
 				
 			}
@@ -99,30 +130,25 @@ public class PlayerController : MonoBehaviour {
 				shoot=false;
 				animator.SetInteger("ReverseRunning",0);
 				GameObject newShot = Instantiate(shot);
-				newShot.transform.position = transform.position + new Vector3(-2.0f,0.3f);
-				newShot.GetComponent<Rigidbody2D>().velocity = new Vector2(-10,0);
+				SpriteRenderer mySpriteRenderer = newShot.GetComponent<SpriteRenderer>();
+				mySpriteRenderer.flipX = true;
+				newShot.transform.position = transform.position + new Vector3(-1.5f,0.1f);
+				newShot.GetComponent<Rigidbody2D>().velocity = new Vector2(-8,0);
 				sourceAudio.PlayOneShot(shootAudio);
-			}
-		}
-		if(Input.GetKeyDown(KeyCode.DownArrow)){
-		 	    animator.SetInteger("ReverseRunning",0);
-				animator.SetInteger("ShotUpFoward",1);
-				if(shoot){
-				shoot=false;
-				GameObject newShot = Instantiate(shot);
-				newShot.transform.position = transform.position + new Vector3(2.0f,0.3f);
-				newShot.GetComponent<Rigidbody2D>().velocity = new Vector2(10,10);
-				sourceAudio.PlayOneShot(shootAudio);
-			}
+				}
 		}
 		
 	}
 	void OnTriggerEnter2D(Collider2D other){
 			if(other.tag.Equals("Enemy")){
 				//sourceAudio.PlayOneShot(hurtAudio);
+				Invoke("ReloadLevel",0.0f);
 				Destroy(this.gameObject);
-				Application.LoadLevel("Test");
-			}if (other.tag.Equals("Ground")){
+				
+
+			}
+			if (other.tag.Equals("Ground") || other.tag.Equals("MovingPlataform")){
+				animator.SetInteger("Jump",0);
 				isGrounded=true;
 			}			
 	}
@@ -137,6 +163,20 @@ public class PlayerController : MonoBehaviour {
 
 	void CallCanShoot(){
 		Invoke("CanShoot",0.0f);
+	}
+
+	void OnLadder(){
+		onLadder = true;
+		this.GetComponent<Rigidbody2D>().gravityScale = 0;
+	}
+
+	void OffLadder(){
+		onLadder = false;
+		this.GetComponent<Rigidbody2D>().gravityScale = 1;
+	}
+
+	void ReloadLevel(){
+		Application.LoadLevel("DebugScene");
 	}
 
 }

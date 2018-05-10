@@ -8,6 +8,8 @@ TagManager:
   - Shot
   - Wall
   - Ground
+  - Stair
+  - MovingPlataform
   layers:
   - Default
   - TransparentFX
