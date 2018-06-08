@@ -15,6 +15,11 @@ public class EnemyDestroyer : MonoBehaviour {
 	}
 
 	void OnTriggerEnter2D(Collider2D other){
-		Destroy(other.gameObject);
+		if(other.tag.Equals("Enemy")){
+			Destroy(other.gameObject);
+		}
+		if(other.tag.Equals("Player")){
+			Physics2D.IgnoreCollision(this.GetComponent<Collider2D>(),other);
+		}
 	}
 }

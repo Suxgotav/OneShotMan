@@ -1,15 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 public class PlayerController : MonoBehaviour {
 
-
+	Scene m_Scene;
 	int charge;
 	bool shoot;	
 	public float speed = 3;
 	
-	float jumpSpeed = 6f;
+	public float jumpSpeed = 7f;
 
 	public float fallMultiplier = 1.5f;
 	public float lowJumpMultiplier = 1f;
@@ -101,6 +101,7 @@ public class PlayerController : MonoBehaviour {
     	}
 		if(Input.GetKeyDown(KeyCode.RightArrow)){
 				if(shoot){
+				animator.SetInteger("Jump",0);	
 				animator.SetInteger("Running",1);	
 				animator.SetInteger("ShotUp",0);
 				animator.SetInteger("ShotUpFoward",0);
@@ -108,11 +109,11 @@ public class PlayerController : MonoBehaviour {
 				shoot=false;
 				GameObject newShot = Instantiate(shot);
 				newShot.transform.position = transform.position + new Vector3(1.5f,0.1f);
-				newShot.GetComponent<Rigidbody2D>().velocity = new Vector2(8,0);
+				newShot.GetComponent<Rigidbody2D>().velocity = new Vector2(6,0);
 				sourceAudio.PlayOneShot(shootAudio);
 			}
 		}
-		if(Input.GetKeyDown(KeyCode.UpArrow)){
+		/*if(Input.GetKeyDown(KeyCode.UpArrow)){
 			    animator.SetInteger("ShotUpFoward",0);
 				animator.SetInteger("ReverseRunning",0);
 				animator.SetInteger("ShotUp",1);
@@ -124,9 +125,10 @@ public class PlayerController : MonoBehaviour {
 				sourceAudio.PlayOneShot(shootAudio);
 				
 			}
-		}
+		}*/
 		if(Input.GetKeyDown(KeyCode.LeftArrow)){
 				if(shoot){
+				animator.SetInteger("Jump",0);
 				shoot=false;
 				animator.SetInteger("ReverseRunning",0);
 				GameObject newShot = Instantiate(shot);
@@ -144,8 +146,6 @@ public class PlayerController : MonoBehaviour {
 				//sourceAudio.PlayOneShot(hurtAudio);
 				Invoke("ReloadLevel",0.0f);
 				Destroy(this.gameObject);
-				
-
 			}
 			if (other.tag.Equals("Ground") || other.tag.Equals("MovingPlataform")){
 				animator.SetInteger("Jump",0);
@@ -176,7 +176,9 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	void ReloadLevel(){
-		Application.LoadLevel("DebugScene");
+		m_Scene = SceneManager.GetActiveScene();
+		string scenename = m_Scene.name;
+		Application.LoadLevel(scenename);
 	}
 
 }

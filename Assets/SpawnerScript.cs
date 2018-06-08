@@ -6,9 +6,13 @@ public class SpawnerScript : MonoBehaviour {
 
 	public GameObject enemy;
 	public float x;
+
+	public float startTime;
+
+	public float repeatTime;
 	// Use this for initialization
 	void Start () {
-		InvokeRepeating("Spawn",0.0f,6.0f);
+		InvokeRepeating("Spawn",startTime,repeatTime);
 	}
 	
 	// Update is called once per frame

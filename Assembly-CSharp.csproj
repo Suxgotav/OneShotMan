@@ -51,10 +51,18 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\BlastScript.cs" />
      <Compile Include="Assets\EnemyDestroyer.cs" />
+     <Compile Include="Assets\EnemyVerticalShot.cs" />
+     <Compile Include="Assets\FireEnemyScript.cs" />
+     <Compile Include="Assets\HoveringEnemyScript.cs" />
      <Compile Include="Assets\ItemScript.cs" />
+     <Compile Include="Assets\JumperEnemyScript.cs" />
+     <Compile Include="Assets\JumpSpike.cs" />
      <Compile Include="Assets\LadderScript.cs" />
+     <Compile Include="Assets\LowShotScript.cs" />
      <Compile Include="Assets\MovingPlataformScript.cs" />
+     <Compile Include="Assets\RobotEnemyScript.cs" />
      <Compile Include="Assets\Scripts\BackgroundRoll.cs" />
      <Compile Include="Assets\Scripts\CameraController.cs" />
      <Compile Include="Assets\Scripts\Enemy2Controller.cs" />
@@ -71,8 +79,15 @@
      <Compile Include="Assets\Scripts\WormEnemyScript.cs" />
      <Compile Include="Assets\ShooterEnemyController.cs" />
      <Compile Include="Assets\SinMovementEnemy.cs" />
+     <Compile Include="Assets\SliderScript.cs" />
+     <Compile Include="Assets\SmallShotScript.cs" />
      <Compile Include="Assets\SpawnerScript.cs" />
      <Compile Include="Assets\SpikeScript.cs" />
+     <Compile Include="Assets\SurpriseEnemyScript.cs" />
+     <Compile Include="Assets\TripleShootEnemy.cs" />
+     <Compile Include="Assets\WheelEnemyScript.cs" />
+     <Compile Include="Assets\WheelReboundEnemy.cs" />
+     <Compile Include="Assets\YSliderScript.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
