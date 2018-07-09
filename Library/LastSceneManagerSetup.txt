@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/City.unity
+- path: Assets/_Scenes/FinalLevels/Mountain.unity
   isLoaded: 1
   isActive: 1

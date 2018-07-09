@@ -10,6 +10,9 @@ TagManager:
   - Ground
   - Stair
   - MovingPlataform
+  - Trap
+  - EnemyShot
+  - PickAxeEnemy
   layers:
   - Default
   - TransparentFX
