@@ -8,7 +8,7 @@ public class GameEngine : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-	  InvokeRepeating("CriaInimigo",1.0f,1.5f);	
+	  //InvokeRepeating("CriaInimigo",0.0f,1.0f);
 	}
 
 	void Acabou () {

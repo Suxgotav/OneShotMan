@@ -18,7 +18,7 @@ public class Enemy2Controller : MonoBehaviour {
 
 	void EnemyShoot(){
 		GameObject newShot = Instantiate(enemyShot);
-		newShot.transform.position = transform.position - new Vector3(2.0f,0.3f);
+		newShot.transform.position = transform.position - new Vector3(2.0f,0.5f);
 	}
 
 	void OnTriggerEnter2D(Collider2D other){
