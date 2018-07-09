@@ -7,7 +7,7 @@ public class EnemyShotController : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		GetComponent<Rigidbody2D>().velocity = new Vector2(-6,0);	
-		if(this.transform.position.x < GameObject.FindGameObjectWithTag("Player").transform.position.x + 5.0f ){
+		if(this.transform.position.x < GameObject.FindGameObjectWithTag("Player").transform.position.x - 5.0f ){
 			Destroy(this.gameObject);
 		}
 	}

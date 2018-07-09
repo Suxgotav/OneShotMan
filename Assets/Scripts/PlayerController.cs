@@ -1,15 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 public class PlayerController : MonoBehaviour {
 
-
+	Scene m_Scene;
 	int charge;
 	bool shoot;	
 	public float speed = 3;
 	
-	float jumpSpeed = 6f;
+	public float jumpSpeed = 7f;
 
 	public float fallMultiplier = 1.5f;
 	public float lowJumpMultiplier = 1f;
@@ -58,14 +58,9 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	void Update(){
-		Debug.Log(charge);
-		if(Input.GetKey(KeyCode.RightArrow)){
-			charge++;
-		}
-		if(charge>200){
-			shoot=true;
-		}
+		
 	}
+
 	void LateUpdate(){
 
     	if (Input.GetKey(KeyCode.D)){
@@ -82,10 +77,11 @@ public class PlayerController : MonoBehaviour {
         	transform.position -= transform.right * speed * Time.deltaTime;
 			leftRight=2;
    	 	}
-		else if(onLadder && Input.GetKey(KeyCode.W) ){
-			Rigidbody2D rb = this.GetComponent<Rigidbody2D>();
-			//rb.isKinematic = true;
-			transform.position += transform.up * speed * 10 * Time.deltaTime;
+		else if(onLadder && Input.GetKey(KeyCode.W)){
+			transform.position += transform.up * speed * 2 * Time.deltaTime;
+		}
+		else if(onLadder && Input.GetKey(KeyCode.S)){
+			transform.position += transform.up * speed * -2 * Time.deltaTime;
 		}	
 		else{
 			animator.SetInteger("Running",0);
@@ -100,7 +96,7 @@ public class PlayerController : MonoBehaviour {
 			isGrounded=false;
     	}
 		if(Input.GetKeyDown(KeyCode.RightArrow)){
-				if(shoot){
+				if(shoot){	
 				animator.SetInteger("Running",1);	
 				animator.SetInteger("ShotUp",0);
 				animator.SetInteger("ShotUpFoward",0);
@@ -108,11 +104,11 @@ public class PlayerController : MonoBehaviour {
 				shoot=false;
 				GameObject newShot = Instantiate(shot);
 				newShot.transform.position = transform.position + new Vector3(1.5f,0.1f);
-				newShot.GetComponent<Rigidbody2D>().velocity = new Vector2(8,0);
+				newShot.GetComponent<Rigidbody2D>().velocity = new Vector2(6,0);
 				sourceAudio.PlayOneShot(shootAudio);
 			}
 		}
-		if(Input.GetKeyDown(KeyCode.UpArrow)){
+		/*if(Input.GetKeyDown(KeyCode.UpArrow)){
 			    animator.SetInteger("ShotUpFoward",0);
 				animator.SetInteger("ReverseRunning",0);
 				animator.SetInteger("ShotUp",1);
@@ -124,14 +120,12 @@ public class PlayerController : MonoBehaviour {
 				sourceAudio.PlayOneShot(shootAudio);
 				
 			}
-		}
+		}*/
 		if(Input.GetKeyDown(KeyCode.LeftArrow)){
 				if(shoot){
+				animator.SetInteger("ReverseRunning",1);
 				shoot=false;
-				animator.SetInteger("ReverseRunning",0);
 				GameObject newShot = Instantiate(shot);
-				SpriteRenderer mySpriteRenderer = newShot.GetComponent<SpriteRenderer>();
-				mySpriteRenderer.flipX = true;
 				newShot.transform.position = transform.position + new Vector3(-1.5f,0.1f);
 				newShot.GetComponent<Rigidbody2D>().velocity = new Vector2(-8,0);
 				sourceAudio.PlayOneShot(shootAudio);
@@ -140,12 +134,10 @@ public class PlayerController : MonoBehaviour {
 		
 	}
 	void OnTriggerEnter2D(Collider2D other){
-			if(other.tag.Equals("Enemy")){
+			if(other.tag.Equals("Enemy") || other.tag.Equals("Trap") || other.tag.Equals("EnemyShot")){
 				//sourceAudio.PlayOneShot(hurtAudio);
 				Invoke("ReloadLevel",0.0f);
 				Destroy(this.gameObject);
-				
-
 			}
 			if (other.tag.Equals("Ground") || other.tag.Equals("MovingPlataform")){
 				animator.SetInteger("Jump",0);
@@ -167,16 +159,21 @@ public class PlayerController : MonoBehaviour {
 
 	void OnLadder(){
 		onLadder = true;
+		//this.GetComponent<Rigidbody2D>().isKinematic = true;
 		this.GetComponent<Rigidbody2D>().gravityScale = 0;
+		this.GetComponent<Rigidbody2D>().velocity = new Vector2(0,0);
 	}
 
 	void OffLadder(){
 		onLadder = false;
 		this.GetComponent<Rigidbody2D>().gravityScale = 1;
+		isGrounded=true;
 	}
 
 	void ReloadLevel(){
-		Application.LoadLevel("DebugScene");
+		m_Scene = SceneManager.GetActiveScene();
+		string scenename = m_Scene.name;
+		Application.LoadLevel(scenename);
 	}
 
 }

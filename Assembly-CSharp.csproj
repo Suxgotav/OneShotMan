@@ -51,28 +51,57 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\EnemyDestroyer.cs" />
-     <Compile Include="Assets\ItemScript.cs" />
-     <Compile Include="Assets\LadderScript.cs" />
-     <Compile Include="Assets\MovingPlataformScript.cs" />
+     <Compile Include="Assets\GGEZ\PerfectPixelCamera\Demo\Assets\ZoomDemo.cs" />
+     <Compile Include="Assets\GGEZ\PerfectPixelCamera\Scripts\PerfectPixelCamera.cs" />
      <Compile Include="Assets\Scripts\BackgroundRoll.cs" />
+     <Compile Include="Assets\Scripts\BlastScript.cs" />
      <Compile Include="Assets\Scripts\CameraController.cs" />
      <Compile Include="Assets\Scripts\Enemy2Controller.cs" />
      <Compile Include="Assets\Scripts\EnemyController.cs" />
+     <Compile Include="Assets\Scripts\EnemyDestroyer.cs" />
+     <Compile Include="Assets\Scripts\EnemyFollow.cs" />
      <Compile Include="Assets\Scripts\EnemyShotController.cs" />
+     <Compile Include="Assets\Scripts\EnemyVerticalShot.cs" />
      <Compile Include="Assets\Scripts\FalllingPlataformScript.cs" />
+     <Compile Include="Assets\Scripts\FireEnemyScript.cs" />
      <Compile Include="Assets\Scripts\GameEngine.cs" />
      <Compile Include="Assets\Scripts\GolemEnemyControl.cs" />
      <Compile Include="Assets\Scripts\GreenEnemyController.cs" />
+     <Compile Include="Assets\Scripts\HighJumpEnemy.cs" />
+     <Compile Include="Assets\Scripts\HoveringEnemyScript.cs" />
+     <Compile Include="Assets\Scripts\ItemScript.cs" />
+     <Compile Include="Assets\Scripts\JumperEnemyScript.cs" />
+     <Compile Include="Assets\Scripts\JumpSpike.cs" />
+     <Compile Include="Assets\Scripts\LadderScript.cs" />
+     <Compile Include="Assets\Scripts\LowShotScript.cs" />
      <Compile Include="Assets\Scripts\MainMenuController.cs" />
+     <Compile Include="Assets\Scripts\MissionStartScript.cs" />
+     <Compile Include="Assets\Scripts\MovingPlataformScript.cs" />
+     <Compile Include="Assets\Scripts\Parallaxing.cs" />
+     <Compile Include="Assets\Scripts\PauseTripleShot.cs" />
+     <Compile Include="Assets\Scripts\PickaxeEnemy.cs" />
+     <Compile Include="Assets\Scripts\PickAxeScript.cs" />
+     <Compile Include="Assets\Scripts\PixelBoy.cs" />
      <Compile Include="Assets\Scripts\PlayerController.cs" />
+     <Compile Include="Assets\Scripts\RobotEnemyScript.cs" />
      <Compile Include="Assets\Scripts\ScorpionEnemyController.cs" />
+     <Compile Include="Assets\Scripts\ShooterEnemyController.cs" />
      <Compile Include="Assets\Scripts\ShotScript.cs" />
+     <Compile Include="Assets\Scripts\SinMovementEnemy.cs" />
+     <Compile Include="Assets\Scripts\SliderScript.cs" />
+     <Compile Include="Assets\Scripts\SmallShotScript.cs" />
+     <Compile Include="Assets\Scripts\SpawnerScript.cs" />
+     <Compile Include="Assets\Scripts\SpikerScript.cs" />
+     <Compile Include="Assets\Scripts\SpikeScript.cs" />
+     <Compile Include="Assets\Scripts\SurpriseEnemyScript.cs" />
+     <Compile Include="Assets\Scripts\TreadmillScript.cs" />
+     <Compile Include="Assets\Scripts\TripleShootEnemy.cs" />
+     <Compile Include="Assets\Scripts\UpshotEnemy.cs" />
+     <Compile Include="Assets\Scripts\WheelEnemyScript.cs" />
+     <Compile Include="Assets\Scripts\WheelReboundEnemy.cs" />
      <Compile Include="Assets\Scripts\WormEnemyScript.cs" />
-     <Compile Include="Assets\ShooterEnemyController.cs" />
-     <Compile Include="Assets\SinMovementEnemy.cs" />
-     <Compile Include="Assets\SpawnerScript.cs" />
-     <Compile Include="Assets\SpikeScript.cs" />
+     <Compile Include="Assets\Scripts\YSliderScript.cs" />
+     <None Include="Assets\GGEZ\PerfectPixelCamera\README.txt" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>

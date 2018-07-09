@@ -21,10 +21,10 @@ GameObject:
   - component: {fileID: 4049860628512930}
   - component: {fileID: 212851293498468140}
   - component: {fileID: 95688470314839498}
-  - component: {fileID: 61525958576259532}
   - component: {fileID: 50525181781722460}
   - component: {fileID: 114606155605860074}
-  - component: {fileID: 61601849394743476}
+  - component: {fileID: 61986437353456770}
+  - component: {fileID: 61636346990819040}
   m_Layer: 0
   m_Name: ShooterEnemy_0
   m_TagString: Enemy
@@ -65,7 +65,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!61 &61525958576259532
+--- !u!61 &61636346990819040
 BoxCollider2D:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -77,20 +77,20 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.029098809, y: -0.0339486}
+  m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
+    oldSize: {x: 0.7619048, y: 0.7619048}
     newSize: {x: 0.8125, y: 0.875}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.28872156, y: 0.9428972}
+  m_Size: {x: 0.7619048, y: 0.7619048}
   m_EdgeRadius: 0
---- !u!61 &61601849394743476
+--- !u!61 &61986437353456770
 BoxCollider2D:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -102,18 +102,18 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.053064004, y: -0.045988485}
+  m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
+    oldSize: {x: 0.7619048, y: 0.7619048}
     newSize: {x: 0.8125, y: 0.875}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.35615978, y: 0.8372716}
+  m_Size: {x: 0.7619048, y: 0.7619048}
   m_EdgeRadius: 0
 --- !u!95 &95688470314839498
 Animator:

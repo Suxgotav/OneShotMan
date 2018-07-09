@@ -2,8 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
+
+
 public class ShotScript : MonoBehaviour {
-void Start () {	
+	
+	public GameObject blast;
+	void Start () {	
 		
 	}
 	
@@ -23,8 +28,18 @@ void Start () {
 		}
 	}
 
-	void OnTriggerEnter2D(){
-		GameObject.FindWithTag("Player").SendMessage("CallCanShoot");
-		Destroy(this.gameObject);
+	void OnTriggerEnter2D(Collider2D other){
+		if(other.tag.Equals("Enemy") || other.tag.Equals("EnemyShot")){
+			GameObject newBlast = Instantiate(blast);
+			newBlast.transform.position = this.transform.position;
+			GameObject.FindWithTag("Player").SendMessage("CallCanShoot");
+			Destroy(other.gameObject);
+			Destroy(this.gameObject);
+		}
+		if(other.tag.Equals("Ground")){
+			GameObject.FindWithTag("Player").SendMessage("CallCanShoot");
+			Destroy(this.gameObject);
+		}
 	}
+	
 }
